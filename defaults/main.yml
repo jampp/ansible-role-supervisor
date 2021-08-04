@@ -10,7 +10,7 @@ supervisor_cfg_loglevel: info
 
 supervisor_cfg_daemon_default: |
   logfile     = /var/log/supervisor/supervisord.log
-  loglevel    = {{supervisor_cfg_loglevel}}
+  loglevel    = {{ supervisor_cfg_loglevel }}
   childlogdir = /var/log/supervisor
   pidfile     = /var/run/supervisord.pid
   minfds      = 1024
