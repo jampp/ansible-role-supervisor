@@ -1,6 +1,6 @@
 ---
 
-supervisor_epel_release: 6
+supervisor_epel_release: 7
 
 supervisor_epel_package: >
   https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ supervisor_epel_release }}.noarch.rpm
