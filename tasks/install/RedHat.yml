@@ -1,11 +1,14 @@
 ---
 
-# Supervisor is present on EPEL
 - name: EPEL Repository (RedHat)
-  yum:
-    state: present
-    name: "{{ supervisor_epel_package }}"
-    update_cache: yes
+  yum_repository:
+    name: epel
+    description: Extra Packages for Enterprise Linux {{ supervisor_epel_release }} - $basearch
+    baseurl: "{{ supervisor_epel_baseurl }}"
+    failovermethod: priority
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: "{{ supervisor_epel_gpgkey }}"
 
 - name: Install Packages (RedHat)
   yum:
