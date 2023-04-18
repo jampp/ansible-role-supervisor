@@ -10,6 +10,9 @@
     gpgcheck: yes
     gpgkey: "{{ supervisor_epel_gpgkey }}"
 
+- name: Refresh yum cache
+  command: yum makecache
+
 - name: Install Packages (RedHat)
   yum:
     state: present
