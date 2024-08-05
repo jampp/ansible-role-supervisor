@@ -3,7 +3,7 @@
 supervisor_epel_release: 7
 
 supervisor_epel_baseurl: >
-  https://dl.fedoraproject.org/pub/epel/{{ supervisor_epel_release }}/$basearch
+  https://archives.fedoraproject.org/pub/archive/epel/{{ supervisor_epel_release }}/$basearch
 
 supervisor_epel_gpgkey: >
   https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ supervisor_epel_release }}
