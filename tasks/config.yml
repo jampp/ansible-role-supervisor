@@ -10,9 +10,14 @@
     owner="root"
     group="root"
     mode="0755"
-  with_items:
-    - /etc/supervisor
-    - /etc/supervisor/conf.d
+
+- name: Supervisor log directory
+  file:
+    state=directory
+    dest="/var/log/supervisor"
+    owner="root"
+    group="root"
+    mode="0755"
 
 - name: Supervisor configuration
   template:
@@ -22,6 +27,23 @@
     group="root"
     mode="0644"
   notify: supervisor restart
+
+- name: Create Systemd service
+  template:
+    src=etc/systemd/system/supervisord.service.j2
+    dest="/etc/systemd/system/supervisord.service"
+    owner="root"
+    group="root"
+    mode="0644"
+  notify: reload systemd
+  when: (ansible_distribution == 'Amazon' and ansible_distribution_major_version == '2023')
+
+- name: Start & Enable Supervisor
+  systemd:
+    name: supervisord
+    enabled: yes
+    state: started
+  when: (ansible_distribution == 'Amazon' and ansible_distribution_major_version == '2023')
 
 - name: Supervisor configuration
   template:

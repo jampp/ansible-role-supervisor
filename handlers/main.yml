@@ -11,4 +11,8 @@
   service: name="{{ supervisor_service }}" state=restarted
   when: supervisor_started
 
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+
 # vi:ts=2:sw=2:et:ft=yaml
