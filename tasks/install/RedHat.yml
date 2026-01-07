@@ -9,22 +9,24 @@
     enabled: yes
     gpgcheck: yes
     gpgkey: "{{ supervisor_epel_gpgkey }}"
+  when: not(ansible_distribution == 'Amazon' and ansible_distribution_major_version == '2023')
 
-- name: Refresh yum cache
-  command: yum makecache
+- name: Refresh cache
+  command: "{{ 'dnf' if ansible_distribution == 'Amazon' and ansible_distribution_major_version == '2023' else 'yum' }}  makecache"
 
 - name: Install Packages (RedHat)
-  yum:
+  action:
+    module: "{{ 'dnf' if ansible_distribution == 'Amazon' and ansible_distribution_major_version == '2023' else 'yum' }}"
     state: present
     name: "{{ item }}"
     enablerepo: "epel"
   with_items: "{{ supervisor_packages }}"
 
-# Fix for Amazon 2015.03
-- name: Amazon pip install supervisor
+- name: Amazon Install pip packages
   pip:
     state: present
-    name: "supervisor>=3.2,<4"
+    name: "{{ item }}"
+  with_items: "{{ supervisor_pip_packages }}"
   when: ansible_distribution == 'Amazon'
 
 # vi:ts=2:sw=2:et:ft=yaml

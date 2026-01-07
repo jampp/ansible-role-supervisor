@@ -11,6 +11,9 @@ supervisor_epel_gpgkey: >
 supervisor_packages:
   - supervisor
 
+supervisor_pip_packages:
+  - supervisor>=3.2,<4
+
 supervisor_prefix: /etc
 supervisor_cfg: "{{supervisor_prefix}}/supervisord.conf"
 supervisor_services_dir: "{{supervisor_prefix}}/supervisor/conf.d"
